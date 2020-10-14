@@ -2,7 +2,7 @@ package br.com.zup.estrelas.lojaseujose;
 
 public enum Categoria {
 
-	MANUTENCAO("MANUTENÇÃO"),
+	MANUTENCAO("MANUTENCAO"),
 	RODA("RODA"),
 	PERFORMANCE("PERFORMANCE"),
 	SOM("SOM");

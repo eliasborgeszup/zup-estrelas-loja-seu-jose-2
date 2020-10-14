@@ -32,16 +32,32 @@ public class Peca {
 		return this.codigoBarras;
 	}
 	
+	public void setCodigoBarras(String codigoBarras) {
+		this.codigoBarras = codigoBarras;
+	}
+	
 	public String getNome() {
 		return this.nome;
+	}
+	
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 	
 	public String getModeloCarro() {
 		return this.modeloCarro;
 	}
 	
+	public void setModeloCarro(String modeloCarro) {
+		this.modeloCarro = modeloCarro;
+	}
+	
 	public String getFabricante() {
 		return this.fabricante;
+	}
+	
+	public void setFabricante(String fabricante) {
+		this.fabricante = fabricante;
 	}
 	
 	public Double getPrecoCusto() {
@@ -64,7 +80,15 @@ public class Peca {
 		return this.qtdEstoque;
 	}
 	
+	public void setQtdEstoque(Integer qtdEstoque) {
+		this.qtdEstoque = qtdEstoque;
+	}
+	
 	public String getCategoria() {
 		return this.categoria;
+	}
+	
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
 	}
 }

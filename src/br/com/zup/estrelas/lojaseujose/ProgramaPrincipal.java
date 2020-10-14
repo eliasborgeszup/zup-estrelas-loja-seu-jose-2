@@ -1,5 +1,6 @@
 package br.com.zup.estrelas.lojaseujose;
 
+import java.util.List;
 import java.util.Scanner;
 
 import br.com.zup.estrelas.lojaseujose.dao.PecaDAO;
@@ -38,7 +39,7 @@ public class ProgramaPrincipal {
 						break;
 						
 					case 2:
-						
+						consultaPeca(teclado, pecaDao);
 						break;
 
 					case 3:
@@ -50,26 +51,26 @@ public class ProgramaPrincipal {
 							
 							switch (opcaoMenuListas) {
 							case 1:
-								
+								listaPecas(pecaDao);
 								break;
 								
 							case 2:
-								
+								listaPecasPorLetras(teclado, pecaDao);
 								break;
 								
 							case 3:
-								
+								listaPecasPorModeloCarro(teclado, pecaDao);
 								break;
 								
 							case 4:
-								
+								listaPecasPorCategoria(teclado, pecaDao);
 								break;
 
 							case 0:
 								break;
 								
 							default:
-								
+								System.out.println("OPÇÃO INVÁLIDA, TENTE NOVAMENTE (:");
 								break;
 							}
 							
@@ -78,14 +79,14 @@ public class ProgramaPrincipal {
 						break;
 
 					case 4:
-						
+						removePeca(teclado, pecaDao);
 						break;
 
 					case 0:
 						break;
 
 					default:
-						
+						System.out.println("OPÇÃO INVÁLIDA, TENTE NOVAMENTE (:");
 						break;
 					}
 					
@@ -214,20 +215,20 @@ public class ProgramaPrincipal {
 		System.out.print("\nQUANTIDADE: ");
 		Integer qtdEstoque = teclado.nextInt();
 		
-		System.out.print("\nCATEGORIA: \n	");
+		System.out.print("\nCATEGORIA: \n");
 		System.out.println("===================================");
 		System.out.println("[1] - MANUTENÇÃO ");
 		System.out.println("[2] - RODA ");
 		System.out.println("[3] - PERFORMANCE ");
 		System.out.println("[4] - SOM ");
-		System.out.println("[0] - CONFIRMAR OPÇÃO ");
 		System.out.println("===================================");
-		System.out.print("\nOPÇÃO: ");
 		
 		Categoria categoria = null;
-		Integer opcaoMenuCategorias = teclado.nextInt();
 		
 		do {
+			
+			System.out.print("\nOPÇÃO: ");
+			int opcaoMenuCategorias = teclado.nextInt();
 			
 			switch (opcaoMenuCategorias) {
 			case 1:
@@ -246,21 +247,169 @@ public class ProgramaPrincipal {
 				categoria = Categoria.SOM;
 				break;
 				
-			case 0:
-				break;
-				
 			default:
-				System.out.println("OPÇÃO INVÁLIDA OU NÃO CONFIRMADA, TENTE NOVAMENTE (:");
+				System.out.println("OPÇÃO INVÁLIDA, TENTE NOVAMENTE (:");
 				break;
 			}
 			
 		} while (categoria == null);
 		
-		Peca pecaDataBase = new Peca(codigoBarras, nome, modeloCarro, fabricante, 
-									precoCusto, precoVenda, qtdEstoque, categoria.getCategoria());
+		Peca pecaDB = new Peca(codigoBarras, nome, modeloCarro, fabricante, 
+							precoCusto, precoVenda, qtdEstoque, categoria.getCategoria());
 		
-		pecaDao.inserePeca(pecaDataBase);
+		pecaDao.inserePeca(pecaDB);
 				
 	}
 
+	public static void consultaPeca(Scanner teclado, PecaDAO pecaDao) {
+		
+		System.out.print("\nCÓDIGO DE BARRAS: ");
+		String codigoBarras = teclado.next();
+		
+		List<Peca> pecasDB = pecaDao.consultaPeca(codigoBarras);
+		
+		for (Peca peca : pecasDB) {
+			System.out.printf("\nPEÇA DE CÓDIGO: [%s]\n", peca.getCodigoBarras());
+			System.out.println("===================================");
+			System.out.println("[NOME]: " + peca.getNome());
+			System.out.println("[MODELO DO CARRO]: " + peca.getModeloCarro());
+			System.out.println("[FABRICANTE]: " + peca.getFabricante());
+			System.out.println("[PREÇO DE CUSTO]: " + peca.getPrecoCusto());
+			System.out.println("[PREÇO DE VENDA]: " + peca.getPrecoVenda());
+			System.out.println("[QUANTIDADE EM ESTOQUE]: " + peca.getQtdEstoque());
+			System.out.println("[CATEGORIA]: " + peca.getCategoria());
+			System.out.println("===================================\n");
+		}
+		
+	}
+	
+	public static void listaPecas(PecaDAO pecaDao) {
+		
+		List<Peca> pecasDB = pecaDao.listaPecas();
+		
+		for (Peca peca : pecasDB) {
+			System.out.printf("\nPEÇA DE CÓDIGO: [%s]\n", peca.getCodigoBarras());
+			System.out.println("===================================");
+			System.out.println("[NOME]: " + peca.getNome());
+			System.out.println("[MODELO DO CARRO]: " + peca.getModeloCarro());
+			System.out.println("[FABRICANTE]: " + peca.getFabricante());
+			System.out.println("[PREÇO DE CUSTO]: " + peca.getPrecoCusto());
+			System.out.println("[PREÇO DE VENDA]: " + peca.getPrecoVenda());
+			System.out.println("[QUANTIDADE EM ESTOQUE]: " + peca.getQtdEstoque());
+			System.out.println("[CATEGORIA]: " + peca.getCategoria());
+			System.out.println("===================================\n");
+		}
+		
+	}
+	
+	public static void listaPecasPorLetras(Scanner teclado, PecaDAO pecaDao) {
+		
+		System.out.print("\nFILTRO POR LETRAS: ");
+		String letras = teclado.next();
+		
+		List<Peca> pecasDB = pecaDao.listaPecasPorLetras(letras);
+		
+		for (Peca peca : pecasDB) {
+			System.out.printf("\nPEÇA DE CÓDIGO: [%s]\n", peca.getCodigoBarras());
+			System.out.println("===================================");
+			System.out.println("[NOME]: " + peca.getNome());
+			System.out.println("[MODELO DO CARRO]: " + peca.getModeloCarro());
+			System.out.println("[FABRICANTE]: " + peca.getFabricante());
+			System.out.println("[PREÇO DE CUSTO]: " + peca.getPrecoCusto());
+			System.out.println("[PREÇO DE VENDA]: " + peca.getPrecoVenda());
+			System.out.println("[QUANTIDADE EM ESTOQUE]: " + peca.getQtdEstoque());
+			System.out.println("[CATEGORIA]: " + peca.getCategoria());
+			System.out.println("===================================\n");
+		}
+		
+	}
+	
+	public static void listaPecasPorModeloCarro(Scanner teclado, PecaDAO pecaDao) {
+		
+		System.out.print("\nMODELO DO CARRO: ");
+		String modeloCarro = teclado.next();
+		
+		List<Peca> pecasDB = pecaDao.listaPecasPorModeloCarro(modeloCarro);
+		
+		for (Peca peca : pecasDB) {
+			System.out.printf("\nPEÇA DE CÓDIGO: [%s]\n", peca.getCodigoBarras());
+			System.out.println("===================================");
+			System.out.println("[NOME]: " + peca.getNome());
+			System.out.println("[MODELO DO CARRO]: " + peca.getModeloCarro());
+			System.out.println("[FABRICANTE]: " + peca.getFabricante());
+			System.out.println("[PREÇO DE CUSTO]: " + peca.getPrecoCusto());
+			System.out.println("[PREÇO DE VENDA]: " + peca.getPrecoVenda());
+			System.out.println("[QUANTIDADE EM ESTOQUE]: " + peca.getQtdEstoque());
+			System.out.println("[CATEGORIA]: " + peca.getCategoria());
+			System.out.println("===================================\n");
+		}
+		
+	}
+	
+	public static void listaPecasPorCategoria(Scanner teclado, PecaDAO pecaDao) {
+		
+		System.out.print("\nCATEGORIA: \n");
+		System.out.println("===================================");
+		System.out.println("[1] - MANUTENÇÃO ");
+		System.out.println("[2] - RODA ");
+		System.out.println("[3] - PERFORMANCE ");
+		System.out.println("[4] - SOM ");
+		System.out.println("===================================");
+		
+		Categoria categoria = null;
+		
+		do {
+			
+			System.out.print("\nOPÇÃO: ");
+			int opcaoMenuCategorias = teclado.nextInt();
+			
+			switch (opcaoMenuCategorias) {
+			case 1:
+				categoria = Categoria.MANUTENCAO;
+				break;
+
+			case 2:
+				categoria = Categoria.RODA;
+				break;
+				
+			case 3:
+				categoria = Categoria.PERFORMANCE;
+				break;
+				
+			case 4:
+				categoria = Categoria.SOM;
+				break;
+				
+			default:
+				System.out.println("OPÇÃO INVÁLIDA, TENTE NOVAMENTE (:");
+				break;
+			}
+			
+		} while (categoria == null);
+		
+		List<Peca> pecasDB = pecaDao.listaPecasPorCategoria(categoria.getCategoria());
+		
+		for (Peca peca : pecasDB) {
+			System.out.printf("\nPEÇA DE CÓDIGO: [%s]\n", peca.getCodigoBarras());
+			System.out.println("===================================");
+			System.out.println("[NOME]: " + peca.getNome());
+			System.out.println("[MODELO DO CARRO]: " + peca.getModeloCarro());
+			System.out.println("[FABRICANTE]: " + peca.getFabricante());
+			System.out.println("[PREÇO DE CUSTO]: " + peca.getPrecoCusto());
+			System.out.println("[PREÇO DE VENDA]: " + peca.getPrecoVenda());
+			System.out.println("[QUANTIDADE EM ESTOQUE]: " + peca.getQtdEstoque());
+			System.out.println("[CATEGORIA]: " + peca.getCategoria());
+			System.out.println("===================================\n");
+		}
+		
+	}
+	
+	public static void removePeca(Scanner teclado, PecaDAO pecaDao) {
+		
+		System.out.print("\nCÓDIGO DE BARRAS: ");
+		String codigoBarras = teclado.next();
+		
+		pecaDao.removePeca(codigoBarras);
+		
+	}
 }
