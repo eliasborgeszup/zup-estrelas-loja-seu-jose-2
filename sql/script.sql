@@ -18,7 +18,7 @@ fabricante varchar(45) not null,
 preco_custo decimal(14, 2) not null,
 preco_venda decimal(14, 2) not null,
 qtd_estoque int not null,
-categoria enum('MANUTENCAO', 'RODA', 'PERFORMANCE', 'SOM', '') not null,
+categoria enum('MANUTENCAO', 'RODA', 'PERFORMANCE', 'SOM') not null,
 primary key (codigo_barras)
 ) default charset = utf8mb4;
 
@@ -31,7 +31,7 @@ preco_custo, preco_venda, qtd_estoque, categoria)
 
 values
 ('111', 'DISCO DE FREIO DIANTEIRO VENTILADO', 'C3', 'FREMAX',
-'69.90', '99.90', '10', 'MANUTENÇÃO'),
+'69.90', '99.90', '10', 'MANUTENCAO'),
 
 ('222', 'RODA RANLOW ARO 13', default, 'RANLOW',
 '300.90', '330.90', '5', 'RODA'),
@@ -43,8 +43,9 @@ values
 '300.90', '330.90', '5', 'SOM'),
 
 ('555', 'KIT EMBREAGEM', 'CIVIC', 'LUK',
-'700.90', '730.90', '1', 'MANUTENÇÃO');
+'700.90', '730.90', '1', 'MANUTENCAO');
 
--- Verifica itens em estoque --
+-- verifica itens em estoque --
 
 select * from estoque;
+
