@@ -1,5 +1,6 @@
 package br.com.zup.estrelas.lojaseujose;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,8 +11,9 @@ public class ProgramaPrincipal {
 
 	public static Peca peca = new Peca();
 	public static PecaDAO pecaDao = new PecaDAO();
+	public static Venda venda = new Venda();
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
 		Scanner teclado = new Scanner(System.in);
 
@@ -19,6 +21,9 @@ public class ProgramaPrincipal {
 		int opcaoMenuPecas;
 		int opcaoMenuListas;
 		int opcaoMenuVendas;
+		
+		venda.criaPasta();
+		venda.criaRelatorioDiario();
 		
 		do {
 			
@@ -96,26 +101,26 @@ public class ProgramaPrincipal {
 
 				
 			case 2:
-				
-				imprimeMenuVendas();
-				opcaoMenuVendas = teclado.nextInt();
-				
+				 
 				do {
+					
+					imprimeMenuVendas();
+					opcaoMenuVendas = teclado.nextInt();
 					
 					switch (opcaoMenuVendas) {
 					case 1:
-						
+						efetuaVenda(teclado, pecaDao);
 						break;
-
 						
 					case 2:
-						
+						venda.mostraRelatorio();
 						break;
 						
 					case 0:
 						break;
 						
 					default:
+						System.out.println("OPÇÃO INVÁLIDA, TENTE NOVAMENTE (:");
 						break;
 					}
 					
@@ -127,7 +132,7 @@ public class ProgramaPrincipal {
 				return;
 				
 			default:
-				
+				System.out.println("OPÇÃO INVÁLIDA, TENTE NOVAMENTE (:");
 				break;
 			}
 			
@@ -412,4 +417,43 @@ public class ProgramaPrincipal {
 		pecaDao.removePeca(codigoBarras);
 		
 	}
+	
+	public static void efetuaVenda(Scanner teclado, PecaDAO pecaDao) throws IOException {
+				
+		System.out.print("\nCÓDIGO DE BARRAS: ");
+		String codigoBarras = teclado.next();
+		
+		List<Peca> pecasDB = pecaDao.consultaPeca(codigoBarras);
+		peca = pecaDao.retornaPeca(codigoBarras);
+		
+		for (Peca peca : pecasDB) {
+			System.out.printf("\nPEÇA DE CÓDIGO: [%s]\n", peca.getCodigoBarras());
+			System.out.println("===================================");
+			System.out.println("[NOME]: " + peca.getNome());
+			System.out.println("[PREÇO DE VENDA]: " + peca.getPrecoVenda());
+			System.out.println("[QUANTIDADE EM ESTOQUE]: " + peca.getQtdEstoque());
+			System.out.println("===================================\n");
+		}
+		
+		int qtdPecas = 0;
+		
+		do {
+			
+			if (peca.getQtdEstoque() <= 0) {
+				System.out.println("===================================");
+				System.out.println("QUANTIDADE DE PEÇAS NÃO É SUFICIENTE!");
+				System.out.println("REABASTEÇA O ESTOQUE OU VENDA EM MENOR QUANTIDADE (:");
+				System.out.println("===================================\n");
+				break;
+			}
+			
+			System.out.println("\n===================================");
+			System.out.print("\nQUANTIDADE DE PEÇAS: ");
+			qtdPecas = teclado.nextInt();
+			
+		} while (!venda.verificaQtdPecaValida(qtdPecas, codigoBarras));
+		
+		venda.efetuarVenda(codigoBarras, qtdPecas);
+	}
+	
 }

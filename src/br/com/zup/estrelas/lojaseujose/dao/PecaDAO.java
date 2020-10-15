@@ -17,6 +17,43 @@ public class PecaDAO {
 	public PecaDAO() {
 		this.conn = new ConnectionFactory().getConnection();
 	}
+
+	public Peca retornaPeca(String codigoBarras) {
+		
+		Peca peca = new Peca();
+		
+		String sql = "select * from estoque where codigo_barras = ?";
+		
+		try {
+			
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			
+			stmt.setString(1, codigoBarras);
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+				
+				peca.setCodigoBarras(rs.getString("codigo_barras"));
+				peca.setNome(rs.getString("nome"));
+				peca.setModeloCarro(rs.getString("modelo_carro"));
+				peca.setFabricante(rs.getString("fabricante"));
+				peca.setPrecoCusto(rs.getDouble("preco_custo"));
+				peca.setPrecoVenda(rs.getDouble("preco_venda"));
+				peca.setQtdEstoque(rs.getInt("qtd_estoque"));
+				peca.setCategoria(rs.getString("categoria"));
+			}
+			
+			stmt.close();
+			
+		} catch (SQLException e) {
+			
+			System.err.println("IMPOSSÍVEL ENCONTRAR A QUANTIDADE DE PEÇAS NO MOMENTO ):");
+			System.err.println(e.getMessage());
+			
+		}
+		return peca;
+	}
 	
 	public boolean inserePeca(Peca pecaDB) {
 		
@@ -283,5 +320,31 @@ public class PecaDAO {
 		return true;
 		
 	}
-	
+		
+	public boolean retiraPecasVendidas(String codigoBarras, int qtdPecas) {
+		
+		String sql = "update estoque set qtd_estoque = qtd_estoque - ? where codigo_barras = ?";
+		
+		try {
+			
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			
+			stmt.setInt(1, qtdPecas);
+			stmt.setString(2, codigoBarras);
+			
+			stmt.execute();
+			stmt.close();
+			
+		} catch (SQLException e) {
+			
+			System.err.println("IMPOSSÍVEL REMOVER UMA PEÇA NO MOMENTO ):");
+			System.err.println(e.getMessage());
+			
+			return false;
+		}
+		
+		return true;
+		
+	}
+		
 }
