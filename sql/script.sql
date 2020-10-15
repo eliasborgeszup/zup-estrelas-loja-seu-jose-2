@@ -48,4 +48,3 @@ values
 -- verifica itens em estoque --
 
 select * from estoque;
-
