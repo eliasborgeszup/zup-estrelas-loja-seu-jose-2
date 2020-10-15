@@ -75,7 +75,7 @@ public class ProgramaPrincipal {
 								break;
 								
 							default:
-								System.out.println("OPÇÃO INVÁLIDA, TENTE NOVAMENTE (:");
+								System.out.println(OPCAO_INVALIDA);
 								break;
 							}
 							
@@ -91,7 +91,7 @@ public class ProgramaPrincipal {
 						break;
 
 					default:
-						System.out.println("OPÇÃO INVÁLIDA, TENTE NOVAMENTE (:");
+						System.out.println(OPCAO_INVALIDA);
 						break;
 					}
 					
@@ -120,7 +120,7 @@ public class ProgramaPrincipal {
 						break;
 						
 					default:
-						System.out.println("OPÇÃO INVÁLIDA, TENTE NOVAMENTE (:");
+						System.out.println(OPCAO_INVALIDA);
 						break;
 					}
 					
@@ -129,10 +129,13 @@ public class ProgramaPrincipal {
 				break;
 			
 			case 0:
+				System.out.println("\n===================================");
+				System.out.println("      [ATÉ AMANHÃ, SEU JOSÉ (:]");
+				System.out.println("===================================");
 				return;
 				
 			default:
-				System.out.println("OPÇÃO INVÁLIDA, TENTE NOVAMENTE (:");
+				System.out.println(OPCAO_INVALIDA);
 				break;
 			}
 			
@@ -140,6 +143,8 @@ public class ProgramaPrincipal {
 		
 		teclado.close();
 	}
+	
+	public static final String OPCAO_INVALIDA = "OPÇÃO INVÁLIDA, TENTE NOVAMENTE (:";
 	
 	public static void imprimeMenuPrincipal() {
 		System.out.println("\n===================================");
@@ -253,7 +258,7 @@ public class ProgramaPrincipal {
 				break;
 				
 			default:
-				System.out.println("OPÇÃO INVÁLIDA, TENTE NOVAMENTE (:");
+				System.out.println(OPCAO_INVALIDA);
 				break;
 			}
 			
@@ -263,6 +268,10 @@ public class ProgramaPrincipal {
 							precoCusto, precoVenda, qtdEstoque, categoria.getCategoria());
 		
 		pecaDao.inserePeca(pecaDB);
+		
+		System.out.println("\n===================================");
+		System.out.println("   [PEÇA CADASTRADA COM SUCESSO]");
+		System.out.println("===================================");
 				
 	}
 
@@ -279,8 +288,8 @@ public class ProgramaPrincipal {
 			System.out.println("[NOME]: " + peca.getNome());
 			System.out.println("[MODELO DO CARRO]: " + peca.getModeloCarro());
 			System.out.println("[FABRICANTE]: " + peca.getFabricante());
-			System.out.println("[PREÇO DE CUSTO]: " + peca.getPrecoCusto());
-			System.out.println("[PREÇO DE VENDA]: " + peca.getPrecoVenda());
+			System.out.printf("[PREÇO DE CUSTO]: R$ %.2f\n", peca.getPrecoCusto());
+			System.out.printf("[PREÇO DE VENDA]: R$ %.2f\n", peca.getPrecoVenda());
 			System.out.println("[QUANTIDADE EM ESTOQUE]: " + peca.getQtdEstoque());
 			System.out.println("[CATEGORIA]: " + peca.getCategoria());
 			System.out.println("===================================\n");
@@ -298,8 +307,8 @@ public class ProgramaPrincipal {
 			System.out.println("[NOME]: " + peca.getNome());
 			System.out.println("[MODELO DO CARRO]: " + peca.getModeloCarro());
 			System.out.println("[FABRICANTE]: " + peca.getFabricante());
-			System.out.println("[PREÇO DE CUSTO]: " + peca.getPrecoCusto());
-			System.out.println("[PREÇO DE VENDA]: " + peca.getPrecoVenda());
+			System.out.printf("[PREÇO DE CUSTO]: R$ %.2f\n", peca.getPrecoCusto());
+			System.out.printf("[PREÇO DE VENDA]: R$ %.2f\n", peca.getPrecoVenda());
 			System.out.println("[QUANTIDADE EM ESTOQUE]: " + peca.getQtdEstoque());
 			System.out.println("[CATEGORIA]: " + peca.getCategoria());
 			System.out.println("===================================\n");
@@ -320,8 +329,8 @@ public class ProgramaPrincipal {
 			System.out.println("[NOME]: " + peca.getNome());
 			System.out.println("[MODELO DO CARRO]: " + peca.getModeloCarro());
 			System.out.println("[FABRICANTE]: " + peca.getFabricante());
-			System.out.println("[PREÇO DE CUSTO]: " + peca.getPrecoCusto());
-			System.out.println("[PREÇO DE VENDA]: " + peca.getPrecoVenda());
+			System.out.printf("[PREÇO DE CUSTO]: R$ %.2f\n", peca.getPrecoCusto());
+			System.out.printf("[PREÇO DE VENDA]: R$ %.2f\n", peca.getPrecoVenda());
 			System.out.println("[QUANTIDADE EM ESTOQUE]: " + peca.getQtdEstoque());
 			System.out.println("[CATEGORIA]: " + peca.getCategoria());
 			System.out.println("===================================\n");
@@ -342,8 +351,8 @@ public class ProgramaPrincipal {
 			System.out.println("[NOME]: " + peca.getNome());
 			System.out.println("[MODELO DO CARRO]: " + peca.getModeloCarro());
 			System.out.println("[FABRICANTE]: " + peca.getFabricante());
-			System.out.println("[PREÇO DE CUSTO]: " + peca.getPrecoCusto());
-			System.out.println("[PREÇO DE VENDA]: " + peca.getPrecoVenda());
+			System.out.printf("[PREÇO DE CUSTO]: R$ %.2f\n", peca.getPrecoCusto());
+			System.out.printf("[PREÇO DE VENDA]: R$ %.2f\n", peca.getPrecoVenda());
 			System.out.println("[QUANTIDADE EM ESTOQUE]: " + peca.getQtdEstoque());
 			System.out.println("[CATEGORIA]: " + peca.getCategoria());
 			System.out.println("===================================\n");
@@ -386,7 +395,7 @@ public class ProgramaPrincipal {
 				break;
 				
 			default:
-				System.out.println("OPÇÃO INVÁLIDA, TENTE NOVAMENTE (:");
+				System.out.println(OPCAO_INVALIDA);
 				break;
 			}
 			
@@ -400,8 +409,8 @@ public class ProgramaPrincipal {
 			System.out.println("[NOME]: " + peca.getNome());
 			System.out.println("[MODELO DO CARRO]: " + peca.getModeloCarro());
 			System.out.println("[FABRICANTE]: " + peca.getFabricante());
-			System.out.println("[PREÇO DE CUSTO]: " + peca.getPrecoCusto());
-			System.out.println("[PREÇO DE VENDA]: " + peca.getPrecoVenda());
+			System.out.printf("[PREÇO DE CUSTO]: R$ %.2f\n", peca.getPrecoCusto());
+			System.out.printf("[PREÇO DE VENDA]: R$ %.2f\n", peca.getPrecoVenda());
 			System.out.println("[QUANTIDADE EM ESTOQUE]: " + peca.getQtdEstoque());
 			System.out.println("[CATEGORIA]: " + peca.getCategoria());
 			System.out.println("===================================\n");
@@ -415,6 +424,10 @@ public class ProgramaPrincipal {
 		String codigoBarras = teclado.next();
 		
 		pecaDao.removePeca(codigoBarras);
+		
+		System.out.println("\n===================================");
+		System.out.println("    [PEÇA REMOVIDA COM SUCESSO]");
+		System.out.println("===================================");
 		
 	}
 	
@@ -430,7 +443,7 @@ public class ProgramaPrincipal {
 			System.out.printf("\nPEÇA DE CÓDIGO: [%s]\n", peca.getCodigoBarras());
 			System.out.println("===================================");
 			System.out.println("[NOME]: " + peca.getNome());
-			System.out.println("[PREÇO DE VENDA]: " + peca.getPrecoVenda());
+			System.out.printf("[PREÇO DE VENDA]: R$ %.2f\n", peca.getPrecoVenda());
 			System.out.println("[QUANTIDADE EM ESTOQUE]: " + peca.getQtdEstoque());
 			System.out.println("===================================\n");
 		}
@@ -438,22 +451,19 @@ public class ProgramaPrincipal {
 		int qtdPecas = 0;
 		
 		do {
-			
-			if (peca.getQtdEstoque() <= 0) {
-				System.out.println("===================================");
-				System.out.println("QUANTIDADE DE PEÇAS NÃO É SUFICIENTE!");
-				System.out.println("REABASTEÇA O ESTOQUE OU VENDA EM MENOR QUANTIDADE (:");
-				System.out.println("===================================\n");
-				break;
-			}
-			
-			System.out.println("\n===================================");
+						
+			System.out.println("===================================");
 			System.out.print("\nQUANTIDADE DE PEÇAS: ");
+			
 			qtdPecas = teclado.nextInt();
 			
 		} while (!venda.verificaQtdPecaValida(qtdPecas, codigoBarras));
-		
+				
 		venda.efetuarVenda(codigoBarras, qtdPecas);
+		
+		System.out.println("\n===================================");
+		System.out.println("    [PEÇA VENDIDA COM SUCESSO]");
+		System.out.println("===================================");
 	}
 	
 }

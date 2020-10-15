@@ -12,8 +12,9 @@ import br.com.zup.estrelas.lojaseujose.pojo.Peca;
 
 public class Venda {
 
-	public static Peca peca = new Peca();
-	public static PecaDAO pecaDao = new PecaDAO();
+	private static Peca peca = new Peca();
+	private static PecaDAO pecaDao = new PecaDAO();
+	private static Calendar c = Calendar.getInstance();
 	
 	private double valorCaixa;
 	
@@ -26,6 +27,12 @@ public class Venda {
 		peca = pecaDao.retornaPeca(codigoBarras);
 		
 		if((peca.getQtdEstoque() - qtdPecas) < 0) {
+			System.out.println("\n===================================");
+			System.out.println("QUANTIDADE DE PEÇAS NÃO É SUFICIENTE!");
+			System.out.println("REABASTEÇA O ESTOQUE,");
+			System.out.println("VENDA EM MENOR QUANTIDADE,");
+			System.out.println("OU PRESSIONE '0' PARA CANCELAR A COMPRA");
+			System.out.println("===================================\n");
 			return false;
 		}
 		return true;
@@ -33,13 +40,40 @@ public class Venda {
 	
 	public void efetuarVenda(String codigoBarras, int qtdPecas) throws IOException {
 		
+		if(qtdPecas <= 0 || codigoBarras.equals(null)) {
+			return;
+		}
+		
 		peca = pecaDao.retornaPeca(codigoBarras);
-		double valorDaVenda = peca.getPrecoCusto() * qtdPecas;
+		double valorVenda = peca.getPrecoCusto() * qtdPecas;
 		
 		pecaDao.retiraPecasVendidas(codigoBarras, qtdPecas);
-		setValorCaixa(getValorCaixa() + (valorDaVenda));
+		setValorCaixa(getValorCaixa() + (valorVenda));
+				
+		registraVendaNoRelatorio(qtdPecas, valorVenda);
+				
+	}
+	
+	public void criaPasta() {
 		
-		Calendar c = Calendar.getInstance();
+		File pasta = new File("LojaSeuJose");
+
+		if (!pasta.exists()) {
+			pasta.mkdir();
+		}
+	}
+	
+	public void criaRelatorioDiario() throws IOException {
+		
+		String nomeRelatorioDiario = "LojaSeuJose/" + "RELATORIO_" + c.get(Calendar.MONTH) + "_" + c.get(Calendar.DAY_OF_MONTH) + ".txt";
+		
+		FileWriter escritor = new FileWriter(nomeRelatorioDiario);
+
+		escritor.close();
+
+	}
+	
+	public void registraVendaNoRelatorio(int qtdPecas, double valorVenda) throws IOException {
 		
 		String nomeRelatorioDiario = "LojaSeuJose/" + "RELATORIO_" + c.get(Calendar.MONTH) + "_" + c.get(Calendar.DAY_OF_MONTH) + ".txt";
 		
@@ -54,31 +88,11 @@ public class Venda {
 			  + "=======================================\n"
 			  + "[CAIXA]: R$ %.2f\n"
 			  + "=======================================\n",
-			  peca.getCodigoBarras(), peca.getNome(), qtdPecas, valorDaVenda, valorCaixa));
+			  peca.getCodigoBarras(), peca.getNome(), qtdPecas, valorVenda, valorCaixa));
 		
 		
 		escritor.close();
 		
-	}
-	
-	public void criaPasta() {
-		File pasta = new File("LojaSeuJose");
-
-		if (!pasta.exists()) {
-			pasta.mkdir();
-		}
-	}
-	
-	public void criaRelatorioDiario() throws IOException {
-
-		Calendar c = Calendar.getInstance();
-		
-		String nomeRelatorioDiario = "LojaSeuJose/" + "RELATORIO_" + c.get(Calendar.MONTH) + "_" + c.get(Calendar.DAY_OF_MONTH) + ".txt";
-		
-		FileWriter escritor = new FileWriter(nomeRelatorioDiario);
-
-		escritor.close();
-
 	}
 	
 	public void mostraRelatorio() throws IOException {
@@ -97,6 +111,28 @@ public class Venda {
 		}
 		leitorDaLista.close();
 		estruturaDaLista.close();
+	}
+	
+	public void vendaInterrompida(int qtdPecas, double valorVenda) throws IOException {
+		
+		String nomeRelatorioDiario = "LojaSeuJose/" + "RELATORIO_" + c.get(Calendar.MONTH) + "_" + c.get(Calendar.DAY_OF_MONTH) + ".txt";
+		
+		FileWriter escritor = new FileWriter(nomeRelatorioDiario, true);
+		
+		escritor.append(String.format(
+				"\n=======================================\n"
+			  + "[CÓDIGO DE BARRAS]: %s\n"
+			  + "[NOME]: %s\n"
+			  +	"[QUANTIDADE]: %d\n"
+			  + "[VALOR]: R$ %.2f\n"
+			  + "=======================================\n"
+			  + "[CAIXA]: R$ %.2f\n"
+			  + "=======================================\n",
+			  peca.getCodigoBarras(), peca.getNome(), qtdPecas, valorVenda, valorCaixa));
+		
+		
+		escritor.close();
+		
 	}
 	
 	public double getValorCaixa() {
