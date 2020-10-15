@@ -45,7 +45,7 @@ public class Venda {
 		}
 		
 		peca = pecaDao.retornaPeca(codigoBarras);
-		double valorVenda = peca.getPrecoCusto() * qtdPecas;
+		double valorVenda = peca.getPrecoVenda() * qtdPecas;
 		
 		pecaDao.retiraPecasVendidas(codigoBarras, qtdPecas);
 		setValorCaixa(getValorCaixa() + (valorVenda));
