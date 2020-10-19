@@ -280,20 +280,18 @@ public class ProgramaPrincipal {
 		System.out.print("\nCÓDIGO DE BARRAS: ");
 		String codigoBarras = teclado.next();
 		
-		List<Peca> pecasDB = pecaDao.consultaPeca(codigoBarras);
+		Peca peca = pecaDao.consultaPeca(codigoBarras);
 		
-		for (Peca peca : pecasDB) {
-			System.out.printf("\nPEÇA DE CÓDIGO: [%s]\n", peca.getCodigoBarras());
-			System.out.println("===================================");
-			System.out.println("[NOME]: " + peca.getNome());
-			System.out.println("[MODELO DO CARRO]: " + peca.getModeloCarro());
-			System.out.println("[FABRICANTE]: " + peca.getFabricante());
-			System.out.printf("[PREÇO DE CUSTO]: R$ %.2f\n", peca.getPrecoCusto());
-			System.out.printf("[PREÇO DE VENDA]: R$ %.2f\n", peca.getPrecoVenda());
-			System.out.println("[QUANTIDADE EM ESTOQUE]: " + peca.getQtdEstoque());
-			System.out.println("[CATEGORIA]: " + peca.getCategoria());
-			System.out.println("===================================\n");
-		}
+		System.out.printf("\nPEÇA DE CÓDIGO: [%s]\n", peca.getCodigoBarras());
+		System.out.println("===================================");
+		System.out.println("[NOME]: " + peca.getNome());
+		System.out.println("[MODELO DO CARRO]: " + peca.getModeloCarro());
+		System.out.println("[FABRICANTE]: " + peca.getFabricante());
+		System.out.printf("[PREÇO DE CUSTO]: R$ %.2f\n", peca.getPrecoCusto());
+		System.out.printf("[PREÇO DE VENDA]: R$ %.2f\n", peca.getPrecoVenda());
+		System.out.println("[QUANTIDADE EM ESTOQUE]: " + peca.getQtdEstoque());
+		System.out.println("[CATEGORIA]: " + peca.getCategoria());
+		System.out.println("===================================\n");
 		
 	}
 	
@@ -436,17 +434,14 @@ public class ProgramaPrincipal {
 		System.out.print("\nCÓDIGO DE BARRAS: ");
 		String codigoBarras = teclado.next();
 		
-		List<Peca> pecasDB = pecaDao.consultaPeca(codigoBarras);
-		peca = pecaDao.retornaPeca(codigoBarras);
+		Peca peca = pecaDao.consultaPeca(codigoBarras);
 		
-		for (Peca peca : pecasDB) {
-			System.out.printf("\nPEÇA DE CÓDIGO: [%s]\n", peca.getCodigoBarras());
-			System.out.println("===================================");
-			System.out.println("[NOME]: " + peca.getNome());
-			System.out.printf("[PREÇO DE VENDA]: R$ %.2f\n", peca.getPrecoVenda());
-			System.out.println("[QUANTIDADE EM ESTOQUE]: " + peca.getQtdEstoque());
-			System.out.println("===================================\n");
-		}
+		System.out.printf("\nPEÇA DE CÓDIGO: [%s]\n", peca.getCodigoBarras());
+		System.out.println("===================================");
+		System.out.println("[NOME]: " + peca.getNome());
+		System.out.printf("[PREÇO DE VENDA]: R$ %.2f\n", peca.getPrecoVenda());
+		System.out.println("[QUANTIDADE EM ESTOQUE]: " + peca.getQtdEstoque());
+		System.out.println("===================================\n");
 		
 		int qtdPecas = 0;
 		

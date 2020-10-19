@@ -24,7 +24,7 @@ public class Venda {
 		
 	public boolean verificaQtdPecaValida(int qtdPecas, String codigoBarras) {
 		
-		peca = pecaDao.retornaPeca(codigoBarras);
+		peca = pecaDao.consultaPeca(codigoBarras);
 		
 		if((peca.getQtdEstoque() - qtdPecas) < 0) {
 			System.out.println("\n===================================");
@@ -44,7 +44,7 @@ public class Venda {
 			return;
 		}
 		
-		peca = pecaDao.retornaPeca(codigoBarras);
+		peca = pecaDao.consultaPeca(codigoBarras);
 		double valorVenda = peca.getPrecoVenda() * qtdPecas;
 		
 		pecaDao.retiraPecasVendidas(codigoBarras, qtdPecas);

@@ -1,14 +1,34 @@
 package br.com.zup.estrelas.lojaseujose.pojo;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="estoque")
 public class Peca {
 
+	@Id
+	@Column(name="codigo_barras")
 	private String codigoBarras;
+	
 	private String nome;
+	
+	@Column(name="modelo_carro")
 	private String modeloCarro;
+	
 	private String fabricante;
+	
+	@Column(name="preco_custo")
 	private Double precoCusto;
+	
+	@Column(name="preco_venda")
 	private Double precoVenda;
+	
+	@Column(name="qtd_estoque")
 	private Integer qtdEstoque;
+	
 	private String categoria;
 
 	public Peca() {
