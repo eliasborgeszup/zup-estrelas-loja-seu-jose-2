@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+
 import java.util.List;
 
 import br.com.zup.estrelas.lojaseujose.pojo.Peca;
@@ -33,55 +34,65 @@ public class PecaDAO {
 
 	public Peca consultaPeca(String codigoBarras) {
 		
+		manager.clear();
+		
 		Peca peca = manager.find(Peca.class, codigoBarras);
-
+		
 		return peca;
 	}
 
 	public List<Peca> listaPecas() {
 
+		manager.clear();
+		
 		Query query = manager.createQuery("select p from Peca as p");
-
+		
 		@SuppressWarnings("unchecked")
 		List<Peca> pecas = query.getResultList();
-
+		
 		return pecas;
 	}
 
 	public List<Peca> listaPecasPorLetras(String letras) {
 
+		manager.clear();
+		
 		Query query = manager.createQuery("select p from Peca as p where p.nome like :letras");
 
 		query.setParameter("letras", letras + "%");
 
 		@SuppressWarnings("unchecked")
 		List<Peca> pecas = query.getResultList();
-
+		
 		return pecas;
 	}
 
 	public List<Peca> listaPecasPorModeloCarro(String modeloCarro) {
 
+		manager.clear();
+		
 		Query query = manager.createQuery("select p from Peca as p where p.modeloCarro = :modeloCarro");
 
 		query.setParameter("modeloCarro", modeloCarro);
 
 		@SuppressWarnings("unchecked")
 		List<Peca> pecas = query.getResultList();
-
+		
 		return pecas;
 
 	}
 
 	public List<Peca> listaPecasPorCategoria(String categoria) {
-
+		
+		manager.clear();
+		
 		Query query = manager.createQuery("select p from Peca as p where p.categoria = :categoria");
 
 		query.setParameter("categoria", categoria);
 
 		@SuppressWarnings("unchecked")
 		List<Peca> pecas = query.getResultList();
-
+		
 		return pecas;
 	}
 
@@ -106,10 +117,10 @@ public class PecaDAO {
 		
 		manager.getTransaction().begin();
 		manager.merge(peca);
-		manager.getTransaction().commit();	
+		manager.getTransaction().commit();
 		
 		return true;
 
 	}
-		
+	
 }
