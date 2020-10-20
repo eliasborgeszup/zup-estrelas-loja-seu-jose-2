@@ -56,7 +56,7 @@ public class Venda {
 	
 	public void criaPasta() {
 		
-		File pasta = new File("LojaSeuJose");
+		File pasta = new File("lojaseujose");
 
 		if (!pasta.exists()) {
 			pasta.mkdir();
@@ -65,7 +65,7 @@ public class Venda {
 	
 	public void criaRelatorioDiario() throws IOException {
 		
-		String nomeRelatorioDiario = "LojaSeuJose/" + "RELATORIO_" + c.get(Calendar.MONTH) + "_" + c.get(Calendar.DAY_OF_MONTH) + ".txt";
+		String nomeRelatorioDiario = "lojaseujose/" + "RELATORIO_" + c.get(Calendar.MONTH) + "_" + c.get(Calendar.DAY_OF_MONTH) + ".txt";
 		
 		FileWriter escritor = new FileWriter(nomeRelatorioDiario);
 
@@ -75,7 +75,7 @@ public class Venda {
 	
 	public void registraVendaNoRelatorio(int qtdPecas, double valorVenda) throws IOException {
 		
-		String nomeRelatorioDiario = "LojaSeuJose/" + "RELATORIO_" + c.get(Calendar.MONTH) + "_" + c.get(Calendar.DAY_OF_MONTH) + ".txt";
+		String nomeRelatorioDiario = "lojaseujose/" + "RELATORIO_" + c.get(Calendar.MONTH) + "_" + c.get(Calendar.DAY_OF_MONTH) + ".txt";
 		
 		FileWriter escritor = new FileWriter(nomeRelatorioDiario, true);
 		
@@ -99,7 +99,7 @@ public class Venda {
 		
 		Calendar c = Calendar.getInstance();
 		
-		String nomeRelatorioDiario = "LojaSeuJose/" + "RELATORIO_" + c.get(Calendar.MONTH) + "_" + c.get(Calendar.DAY_OF_MONTH) + ".txt";
+		String nomeRelatorioDiario = "lojaseujose/" + "RELATORIO_" + c.get(Calendar.MONTH) + "_" + c.get(Calendar.DAY_OF_MONTH) + ".txt";
 		
 		FileReader estruturaDaLista = new FileReader(nomeRelatorioDiario);
 		BufferedReader leitorDaLista = new BufferedReader(estruturaDaLista);
@@ -115,7 +115,7 @@ public class Venda {
 	
 	public void vendaInterrompida(int qtdPecas, double valorVenda) throws IOException {
 		
-		String nomeRelatorioDiario = "LojaSeuJose/" + "RELATORIO_" + c.get(Calendar.MONTH) + "_" + c.get(Calendar.DAY_OF_MONTH) + ".txt";
+		String nomeRelatorioDiario = "lojaseujose/" + "RELATORIO_" + c.get(Calendar.MONTH) + "_" + c.get(Calendar.DAY_OF_MONTH) + ".txt";
 		
 		FileWriter escritor = new FileWriter(nomeRelatorioDiario, true);
 		

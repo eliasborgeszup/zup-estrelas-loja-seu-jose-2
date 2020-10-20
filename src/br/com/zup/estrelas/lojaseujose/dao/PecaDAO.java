@@ -32,7 +32,7 @@ public class PecaDAO {
 	}
 
 	public Peca consultaPeca(String codigoBarras) {
-
+		
 		Peca peca = manager.find(Peca.class, codigoBarras);
 
 		return peca;
@@ -99,16 +99,14 @@ public class PecaDAO {
 
 	public boolean retiraPecasVendidas(String codigoBarras, int qtdPecas) {
 
-//		Query query = manager.createNamedQuery(
-//				"update Peca set qtdEstoque = qtdEstoque - :qtdPecas where codigoBarras = :codigoBarras");
-
 		Peca peca = manager.find(Peca.class, codigoBarras);
 		
-		peca.setQtdEstoque(peca.getQtdEstoque() - qtdPecas);
+		int novaQtdEstoque = peca.getQtdEstoque() - qtdPecas;
+		peca.setQtdEstoque(novaQtdEstoque);
 		
 		manager.getTransaction().begin();
 		manager.merge(peca);
-		manager.getTransaction().commit();
+		manager.getTransaction().commit();	
 		
 		return true;
 
